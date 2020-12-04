@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Blog &amp; Slides"><meta name="keywords" content="blog,slides,Hexo,Jekyll,GitHub Pages,revealjs"><meta name="author" content="方镇澎,undefined"><meta name="copyright" content="方镇澎"><title>Blog &amp; Slides | 方镇澎的博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reset.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/theme/moon.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/monokai.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div class="reveal"><div class="slides"><section data-markdown data-separator="----" data-separator-vertical="---" data-charset="utf-8"><script type="text/template">
+## Blog & Slides
+
+### 方镇澎
+
+2020/12/3
+
+----
+
+## Outline
+
+* Static Website and Blog
+  * Github Page
+  * Static Site Generator: Jekyll, Hexo...
+* Slides on Website
+  * Revealjs
+
+----
+
+## Static Website and Blog
+
+A static web page is a web page that is delivered to the user's web browser exactly as stored.
+
+-- Wikipedia <!-- .element: style="text-align: right" -->
+
+静态网站是指全部由HTML（标准通用标记语言的子集）代码格式页面组成的网站，所有的内容包含在网页文件中。
+
+-- 百度百科 <!-- .element: style="text-align: right" -->
+
+---
+
+## [GitHub Pages](https://pages.github.com/)
+
+Websites for you and your projects.
+
+1. Write an *index.html* file to `https://github.com/username/username.github.io`
+
+2. Read from `https://username.github.io`
+
+---
+
+## Static Site Generator
+
+![Site Generators](site-generators.PNG)
+<!-- .element: class="r-stretch" -->
+
+Data Source: <https://jamstack.org/generators/>
+
+---
+
+## Play with Jekyll
+
+1. Fork a Jekyll theme repository
+2. Write blogs in `_post` folder
+3. Push to `https://github.com/username/username.github.io`
+4. Read from `https://username.github.io`
+
+---
+
+## My Jekyll website
+
+![My Jekyll website](Jekyll-site.PNG)
+<!-- .element: class="r-stretch" -->
+
+---
+
+## Jekyll is fine until
+
+I want to present my slides on my blog website!
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+## Slides on Website
+
+----
+
+## PPT? Revealjs!
+
+![Revealjs logo](https://hakim-static.s3.amazonaws.com/reveal-js/logo/v1/reveal-black-text.svg) <!-- .element: width="450" -->
+
+1. Write presentations using Markdown
+2. Anything you can do on the web, you can do in your presentation
+
+---
+
+## [revealjs.com](https://revealjs.com/)
+<!-- .element: style="position: fixed;top: 0;left: 0;" -->
+<!-- .slide: data-background-iframe="https://revealjs.com/" data-background-interactive -->
+
+---
+
+## Revealjs Feature
+
+1. Vertical Slide
+2. Overiew Mode
+3. Fullscreen Mode
+4. PDF Export `?print-pdf`
+
+## Slides.com
+
+the official reveal.js presentation editor.
+
+<video data-autoplay src="https://static.slid.es/site/homepage/v3/homepage-editor-1440x900.mp4"></video>
+
+----
+
+## Play with Hexo
+
+I need a Javascript static site generator to use reveal.js easily.
+
+1. Jekyll Ruby *NO* <!-- .element: style="color:red" -->
+2. Hexo Javascript *YES* <!-- .element: style="color:green" -->
+  
+---
+
+## Install Hexo
+
+```bash
+npm install hexo-cli -g
+hexo init blog
+cd blog
+npm install
+```
+
+---
+
+## Install Hexo theme
+
+```bash
+npm install hexo-theme-melody
+```
+
+---
+
+## Use Melody Theme
+
+[Melody](https://github.com/Molunerfinn/hexo-theme-melody) has Revealjs embeded.
+
+Edit `_config.yml`
+
+```yml
+theme: melody
+```
+
+---
+
+## Copy theme file
+
+```bash
+mv ./node_modules/hexo-theme-melody/_config.yml _config.melody.yml
+```
+
+---
+
+## Write blog
+
+```bash
+hexo new post <title>
+```
+
+Then write blog in source/_posts/*title*.md
+
+---
+
+## Run Hexo locally
+
+```bash
+hexo server
+```
+
+---
+
+## Deploy to GitHub
+
+```bash
+hexo g
+hexo d
+```
+
+---
+
+## My local editor VSCode
+
+![2020-12-04T145007](2020-12-04T145007.png)
+<!-- .element: class="r-stretch" -->
+
+1. *vscode-hexo-utils* plugin: enhance Markdown preview.
+
+2. *Paste Image* plugin: paste image by ctrl-c/ctrl-alt-v.
+
+---
+
+## My Hexo website <fzp.github.io>
+<!-- .element: style="position: fixed;top: 0;left: 0;" -->
+<!-- .slide: data-background-iframe="https://fzp.github.io/" data-background-interactive -->
+
+----
+
+## Why Blog?
+
+Feynman Technique
+
+> Learn by teaching someone else a topic in simple terms
+
+
+----
+
+## Blog Now!</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/zoom/zoom.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/search/search.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/notes/notes.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/math/math.js"></script><script>Reveal.initialize({
+  mouseWheel: false,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  parallaxBackgroundImage: '',
+  parallaxBackgroundSize: '',
+  parallaxBackgroundHorizontal: '',
+  parallaxBackgroundVertical: '',
+  autoSlide: false,
+  loop: false,
+  controlsLayout: 'bottom-right', // Determines where controls appear, "edges" or "bottom-right"
+  controlsBackArrows: 'faded',
+  progress: true,
+  showNotes: false,
+  autoPlayMedia: true,
+  backgroundTransition: 'fade',
+  markdown: {
+    smartypants: true
+  },
+  plugins: [
+  // Search
+  RevealSearch,
+  // Speaker notes
+  RevealNotes,
+  // Zoom in and out with Alt+click
+  RevealZoom,
+  // MathJax
+  RevealMath
+  ],
+  dependencies: [
+    { src: 'https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    // Syntax highlight for <code> elements
+    { src: 'https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/highlight.js', async: true, callback: function() {
+      // issue #218
+      setTimeout(function () {
+        hljs.initHighlighting();
+      }, 0)
+    } },
+  ]
+});</script></body></html>
