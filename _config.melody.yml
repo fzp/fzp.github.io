@@ -24,11 +24,12 @@ menu:
   #XXX: /xxx
 
 # Favicon
+# https://formito.com/tools/favicon
 # ---------------
-favicon: /melody-favicon.ico
+favicon: /favicon.svg
 
 # PWA
-# See https://github.com/JLHwung/hexo-offline
+# See https://github.com/JLHwung/hexo-offline 
 # ---------------
 pwa:
   enable: false

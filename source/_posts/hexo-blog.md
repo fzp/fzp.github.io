@@ -111,6 +111,9 @@ I want to present my slides on my blog website!
 2. Overiew Mode
 3. Fullscreen Mode
 4. PDF Export `?print-pdf`
+5. Search plugin
+
+---
 
 ## Slides.com
 
@@ -124,8 +127,8 @@ the official reveal.js presentation editor.
 
 I need a Javascript static site generator to use reveal.js easily.
 
-1. Jekyll Ruby *NO* <!-- .element: style="color:red" -->
-2. Hexo Javascript *YES* <!-- .element: style="color:green" -->
+1. Jekyll: Ruby *NO* <!-- .element: style="color:red" -->
+2. Hexo: Javascript *YES* <!-- .element: style="color:green" -->
   
 ---
 
@@ -193,6 +196,11 @@ hexo g
 hexo d
 ```
 
+Or use [Travis CI](https://hexo.io/zh-cn/docs/github-pages.htmlhttps://travis-ci.com/)
+
+![2020-12-08T154612](2020-12-08T154612.png)
+<!-- .element: class="r-stretch" -->
+
 ---
 
 ## My local editor VSCode
@@ -206,7 +214,7 @@ hexo d
 
 ---
 
-## My Hexo website <fzp.github.io>
+## My Hexo website
 <!-- .element: style="position: fixed;top: 0;left: 0;" -->
 <!-- .slide: data-background-iframe="https://fzp.github.io/" data-background-interactive -->
 
@@ -214,11 +222,15 @@ hexo d
 
 ## Why Blog?
 
-Feynman Technique
+Sharing knowledge, gaining a sense of identity and *learning* <!-- .element: style="color:red" -->.
 
-> Learn by teaching someone else a topic in simple terms
+<br/>
 
+Feynman Technique:
+<!-- .element: style="text-align: left" -->
+
+Learn by teaching someone else a topic in simple terms.
 
 ----
 
-## Blog Now!
+## [Blog Now!](fzp.github.io)
