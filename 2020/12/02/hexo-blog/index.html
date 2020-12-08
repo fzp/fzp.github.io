@@ -206,7 +206,7 @@ Feynman Technique
 
 ----
 
-## Blog Now!</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/zoom/zoom.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/search/search.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/notes/notes.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/math/math.js"></script><script>Reveal.initialize({
+## Blog Now!</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/zoom/zoom.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/search/search.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/notes/notes.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/math/math.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/markdown/markdown.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/highlight.js"></script><script>Reveal.initialize({
   mouseWheel: false,
   transition: 'slide',
   transitionSpeed: 'default',
@@ -226,6 +226,9 @@ Feynman Technique
     smartypants: true
   },
   plugins: [
+  RevealMarkdown,
+  // Markdown
+  RevealHighlight,
   // Search
   RevealSearch,
   // Speaker notes
@@ -234,15 +237,5 @@ Feynman Technique
   RevealZoom,
   // MathJax
   RevealMath
-  ],
-  dependencies: [
-    { src: 'https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    // Syntax highlight for <code> elements
-    { src: 'https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/highlight.js', async: true, callback: function() {
-      // issue #218
-      setTimeout(function () {
-        hljs.initHighlighting();
-      }, 0)
-    } },
   ]
 });</script></body></html>
