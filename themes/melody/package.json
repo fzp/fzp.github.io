@@ -1,0 +1,69 @@
+{
+  "_from": "fzp-hexo-theme-melody@^1.9.1",
+  "_id": "fzp-hexo-theme-melody@1.9.1",
+  "_inBundle": false,
+  "_integrity": "sha512-uBul9Xx2J1aTFVHc4kAa8YXshT/d7Ud70b/Jv+zrUD2HdP56oH+Fc0ENENvGNeCnFsvFXT29Rli+1ZzYZsMEBg==",
+  "_location": "/fzp-hexo-theme-melody",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "fzp-hexo-theme-melody@^1.9.1",
+    "name": "fzp-hexo-theme-melody",
+    "escapedName": "fzp-hexo-theme-melody",
+    "rawSpec": "^1.9.1",
+    "saveSpec": null,
+    "fetchSpec": "^1.9.1"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://hpm-npm-516370794319.d.codeartifact.ap-northeast-1.amazonaws.com:443/npm/hpm-npm/fzp-hexo-theme-melody/-/fzp-hexo-theme-melody-1.9.1.tgz",
+  "_shasum": "8e2e6209d2e53ec00b81178a79d7a5c338352788",
+  "_spec": "fzp-hexo-theme-melody@^1.9.1",
+  "_where": "C:\\Users\\fzp\\projects\\blog",
+  "bundleDependencies": false,
+  "commitlint": {
+    "extends": [
+      "./node_modules/@picgo/bump-version/commitlint-picgo"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./node_modules/@picgo/bump-version/.cz-config.js"
+    }
+  },
+  "deprecated": false,
+  "description": "hexo-theme-melody hexo theme",
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@picgo/bump-version": "^1.0.3",
+    "commitizen": "^3.0.7",
+    "conventional-changelog": "^3.1.3",
+    "cross-env": "^5.1.3",
+    "cz-customizable": "^5.10.0",
+    "eslint": "^4.4.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "husky": "^1.3.1",
+    "nib": "^1.1.2",
+    "stylus-supremacy": "^1.6.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "name": "fzp-hexo-theme-melody",
+  "scripts": {
+    "cz": "git-cz",
+    "release": "bump-version"
+  },
+  "version": "1.9.1"
+}
