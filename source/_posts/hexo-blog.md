@@ -14,11 +14,11 @@ slide:
   autoPlayMedia: true
 ---
 
-## Blog & Slides
+## Blog, Slides and Mindmap
 
 ### 方镇澎
 
-2020/12/3
+2020/12/9
 
 ----
 
@@ -29,6 +29,8 @@ slide:
   * Static Site Generator: Jekyll, Hexo...
 * Slides on Website
   * Revealjs
+* Mindmap on Website
+  * markmap
 
 ----
 
@@ -102,6 +104,12 @@ I want to present my slides on my blog website!
 ## [revealjs.com](https://revealjs.com/)
 <!-- .element: style="position: fixed;top: 0;left: 0;" -->
 <!-- .slide: data-background-iframe="https://revealjs.com/" data-background-interactive -->
+
+---
+
+## Anything with Revealjs
+
+<iframe class="r-stretch" src="https://rajgoel.github.io/reveal.js-demos/anything-demo.html#/"/>
 
 ---
 
@@ -212,14 +220,63 @@ Or use [Travis CI](https://hexo.io/zh-cn/docs/github-pages.htmlhttps://travis-ci
 
 2. *Paste Image* plugin: paste image by ctrl-c/ctrl-alt-v.
 
+----
+
+## MindMap on Website
+
+Let's hack Hexo theme.
+
 ---
 
-## My Hexo website
+## markmap.js.org
+<!-- .element: style="position: fixed;top: 0;left: 0;" -->
+<!-- .slide: data-background-iframe="https://markmap.js.org/" data-background-interactive -->
+
+---
+
+## My Old Mindmap
+<!-- .element: style="position: fixed;top: 0;left: 0;" -->
+<!-- .slide: data-background-iframe="https://fzp.github.io/2019/07/15/2019-7-16-web-safety/" data-background-interactive -->
+
+---
+
+## My New Mindmap
+<!-- .element: style="position: fixed;top: 0;left: 0;" -->
+<!-- .slide: data-background-color="rgb(255, 250, 250)" data-background-iframe="https://fzp.github.io/2020/12/08/web-safety.mm/" data-background-interactive -->
+
+---
+
+## Try My Theme
+
+- <https://github.com/fzp/hexo-theme-melody>
+- <https://www.npmjs.com/package/hexo-theme-melody-fzp>
+
+----
+
+## My Hexo website <fzp.github.io>
 <!-- .element: style="position: fixed;top: 0;left: 0;" -->
 <!-- .slide: data-background-iframe="https://fzp.github.io/" data-background-interactive -->
 
 ----
 
+## Markup Language
+
+Focus on Content
+
+- Tex
+- HTML
+- Markdown
+- Org-mode
+
+---
+
+## Tools for Markup Languages
+
+- [Pandoc](https://pandoc.org/#)
+- [Beamer](https://www.overleaf.com/learn/latex/beamer)
+  - [Beamer in org-mode](https://orgmode.org/worg/exporters/beamer/tutorial.html)
+
+----
 ## Why Blog?
 
 Sharing knowledge, gaining a sense of identity and *learning* <!-- .element: style="color:red" -->.
@@ -233,4 +290,6 @@ Learn by teaching someone else a topic in simple terms.
 
 ----
 
-## [Blog Now!](fzp.github.io)
+## Blog Now!
+
+fzp.github.io

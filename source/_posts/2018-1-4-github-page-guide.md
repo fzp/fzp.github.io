@@ -3,7 +3,7 @@ title: GitHub Pages 博客极简指南
 date: 2018-01-04
 tags:
   - Web
-  - GitHub
+  - GitHub Pages
 ---
 
 利用GitHub Pages快速搭建静态博客网页
