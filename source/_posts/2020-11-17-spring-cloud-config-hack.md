@@ -1,5 +1,5 @@
 ---
-title: An interesting Hack of Spring Cloud Config
+title: An Interesting Hack of Spring Cloud Config
 date: 2020-11-17
 tags:
   - Spring Cloud Config
