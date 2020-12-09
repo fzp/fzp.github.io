@@ -1,5 +1,5 @@
 ---
-title: 如何执行负载测试
+title: 负载测试： 设计，执行与报告
 date: 2019-09-21
 tags:
   - Load testing
@@ -27,7 +27,7 @@ tags:
 
 具体到负载测试，流程如下：
 
-![负载测试流程]({{ site.url }}/_posts_data/2019-9-21-load-testing/load-testing-process.png)
+![负载测试流程](2019-9-21-load-testing/load-testing-process.png)
 
 ### 设置环境
 

@@ -82,7 +82,7 @@ grid-row:1/6;
 }
 ```
 
-![grid_layout.png]({{ site.url }}/_posts_data/2020-11-3-css-layout-guide/grid_layout.png)
+![grid_layout.png](2020-11-3-css-layout-guide/grid_layout.png)
 
 主要的思想就是这么简单，其他的属性，比如格子的缩放和内容的对齐，可以参考官方文档或者其他blog。
 
