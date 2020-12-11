@@ -27,7 +27,7 @@ tags:
 
 具体到负载测试，流程如下：
 
-![负载测试流程](2019-9-21-load-testing/load-testing-process.png)
+![负载测试流程](load-testing-process.png)
 
 ### 设置环境
 

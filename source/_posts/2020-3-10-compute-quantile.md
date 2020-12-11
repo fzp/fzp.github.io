@@ -58,7 +58,7 @@ $$n= \lceil \frac{P}{100} \times N \rceil$$
 
 The percentile values for the ordered list {15, 20, 35, 40, 50}
 
-![percentile.png](2020-3-10-compute-quantile/percentile.png)
+![percentile.png](percentile.png)
 
 ### The linear interpolation between closest ranks method
 
@@ -114,7 +114,7 @@ $$ p = \frac{x}{N+1} $$
 
 #### lineaer interpotation
 
-![linearInterpolation.png](2020-3-10-compute-quantile/linearInterpolation.png)
+![linearInterpolation.png](linearInterpolation.png)
 
 #### The Apache Commons Mathematics Library
 
@@ -138,7 +138,7 @@ Let n be the length of the (sorted) array and 0 < p <= 100 be the desired percen
 
 Prometheus use it for Histogram(metrics type)
 
-![exampleHistogram.png](2020-3-10-compute-quantile/exampleHistogram.png)
+![exampleHistogram.png](exampleHistogram.png)
 
 steps:
 
@@ -180,7 +180,7 @@ Centroids left weight: \[w1,w2,w3\] //0<w1<w2<w3<=1
 3. centroid left weight: \[y1,y2,y3,y4,y5,y6\] //$yi = \Sigma_{j<i} x(j).weight$
 4. merge from lelt to right: merge(x1,x2) , merge(x3,x4,x5) when \[y1,y2, w1, y3,y4,y5, w2, y6, w3\]
 
-![merge.PNG](2020-3-10-compute-quantile/merge.PNG)
+![merge.PNG](merge.PNG)
 
 #### Scale function
 
@@ -188,17 +188,17 @@ how Centroids left weight: \[w1,w2,w3\] comes from?
 
 $$ f(q)=\frac{\delta}{2\pi} sin^{-1}(2q-1)$$
 
-![scaleFunction.PNG](2020-3-10-compute-quantile/scaleFunction.PNG)
+![scaleFunction.PNG](scaleFunction.PNG)
 
 #### Query
 
-![query.PNG](2020-3-10-compute-quantile/query.PNG)
+![query.PNG](query.PNG)
 
 ## Experiment
 
 We introduce [Apache math percentile](https://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/stat/descriptive/rank/Percentile.html) as benchmark, it calculate percentile with no compression (not suitable for big data, but accurate)
 
-![quantileCompare.PNG](2020-3-10-compute-quantile/quantileCompare.PNG)
+![quantileCompare.PNG](quantileCompare.PNG)
 
 In the winner column, t means t-Digest. latencyHistogram is an Object to calculate quantile using Histogram Algorithm, so l means latencyHistogram.
 
