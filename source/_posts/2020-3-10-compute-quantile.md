@@ -58,7 +58,7 @@ $$n= \lceil \frac{P}{100} \times N \rceil$$
 
 The percentile values for the ordered list {15, 20, 35, 40, 50}
 
-![Percentile.png](2020-3-10-compute-quantile/Percentile.png)
+![percentile.png](2020-3-10-compute-quantile/percentile.png)
 
 ### The linear interpolation between closest ranks method
 
@@ -114,7 +114,7 @@ $$ p = \frac{x}{N+1} $$
 
 #### lineaer interpotation
 
-![Linear_interpolation.png](2020-3-10-compute-quantile/Linear_interpolation.png)
+![linear_interpolation.png](2020-3-10-compute-quantile/linear_interpolation.png)
 
 #### The Apache Commons Mathematics Library
 
@@ -138,7 +138,7 @@ Let n be the length of the (sorted) array and 0 < p <= 100 be the desired percen
 
 Prometheus use it for Histogram(metrics type)
 
-![Example_histogram.png](2020-3-10-compute-quantile/Example_histogram.png)
+![example_histogram.png](2020-3-10-compute-quantile/example_histogram.png)
 
 steps:
 
