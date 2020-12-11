@@ -220,13 +220,13 @@
 <li>centroid left weight: [y1,y2,y3,y4,y5,y6] //$yi = \Sigma_{j&lt;i} x(j).weight$</li>
 <li>merge from lelt to right: merge(x1,x2) , merge(x3,x4,x5) when [y1,y2, w1, y3,y4,y5, w2, y6, w3]</li>
 </ol>
-<p><img src="merge.PNG" alt="merge.PNG"></p>
+<p><img src="merge.png" alt="merge.png"></p>
 <h4 id="Scale-function"><a href="#Scale-function" class="headerlink" title="Scale function"></a>Scale function</h4><p>how Centroids left weight: [w1,w2,w3] comes from?</p>
 <p>$$ f(q)=\frac{\delta}{2\pi} sin^{-1}(2q-1)$$</p>
-<p><img src="scaleFunction.PNG" alt="scaleFunction.PNG"></p>
-<h4 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h4><p><img src="query.PNG" alt="query.PNG"></p>
+<p><img src="scaleFunction.png" alt="scaleFunction.png"></p>
+<h4 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h4><p><img src="query.png" alt="query.png"></p>
 <h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>We introduce <a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/stat/descriptive/rank/Percentile.html">Apache math percentile</a> as benchmark, it calculate percentile with no compression (not suitable for big data, but accurate)</p>
-<p><img src="quantileCompare.PNG" alt="quantileCompare.PNG"></p>
+<p><img src="quantileCompare.png" alt="quantileCompare.png"></p>
 <p>In the winner column, t means t-Digest. latencyHistogram is an Object to calculate quantile using Histogram Algorithm, so l means latencyHistogram.</p>
 <p>Only quantile 0.4 and quantile 0.9, the Bucket algorithm wins. Otherwise, the t-Digest is better.</p>
 <p>Most t-Digest’s error rate is less than 1%(except 1 case), some of them less than  0.1%.<br>Most latencyHistogram’s error rate is larger than 1%(except 1 case), several times larger than t-Digest’s. </p>
