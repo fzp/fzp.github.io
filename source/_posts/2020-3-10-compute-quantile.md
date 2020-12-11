@@ -114,7 +114,7 @@ $$ p = \frac{x}{N+1} $$
 
 #### lineaer interpotation
 
-![linear_interpolation.png](2020-3-10-compute-quantile/linear_interpolation.png)
+![linearInterpolation.png](2020-3-10-compute-quantile/linearInterpolation.png)
 
 #### The Apache Commons Mathematics Library
 
@@ -138,7 +138,7 @@ Let n be the length of the (sorted) array and 0 < p <= 100 be the desired percen
 
 Prometheus use it for Histogram(metrics type)
 
-![example_histogram.png](2020-3-10-compute-quantile/example_histogram.png)
+![exampleHistogram.png](2020-3-10-compute-quantile/exampleHistogram.png)
 
 steps:
 
@@ -188,7 +188,7 @@ how Centroids left weight: \[w1,w2,w3\] comes from?
 
 $$ f(q)=\frac{\delta}{2\pi} sin^{-1}(2q-1)$$
 
-![scale_function.PNG](2020-3-10-compute-quantile/scale_function.PNG)
+![scaleFunction.PNG](2020-3-10-compute-quantile/scaleFunction.PNG)
 
 #### Query
 
