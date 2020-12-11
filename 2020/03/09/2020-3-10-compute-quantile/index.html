@@ -42,7 +42,7 @@
 </ul>
 <h2 id="How-to-calculate-accurate-quantile"><a href="#How-to-calculate-accurate-quantile" class="headerlink" title="How to calculate accurate quantile"></a>How to calculate accurate quantile</h2><h3 id="The-nearest-rank-method"><a href="#The-nearest-rank-method" class="headerlink" title="The nearest-rank method"></a>The nearest-rank method</h3><p>$$n= \lceil \frac{P}{100} \times N \rceil$$</p>
 <p>The percentile values for the ordered list {15, 20, 35, 40, 50}</p>
-<p><img src="2020-3-10-compute-quantile/Percentile.png" alt="Percentile.png"></p>
+<p><img src="2020-3-10-compute-quantile/percentile.png" alt="percentile.png"></p>
 <h3 id="The-linear-interpolation-between-closest-ranks-method"><a href="#The-linear-interpolation-between-closest-ranks-method" class="headerlink" title="The linear interpolation between closest ranks method"></a>The linear interpolation between closest ranks method</h3><p>medium of {7, 8, 10, 15} is 8 or 9?</p>
 <h4 id="Mapping-relation-bewteen-rank-and-percentile"><a href="#Mapping-relation-bewteen-rank-and-percentile" class="headerlink" title="Mapping relation bewteen rank and percentile"></a>Mapping relation bewteen rank and percentile</h4><ol>
 <li>the neearest-rank method</li>
@@ -173,7 +173,7 @@
 </tr>
 </tbody></table>
 <p>$$ p = \frac{x}{N+1} $$</p>
-<h4 id="lineaer-interpotation"><a href="#lineaer-interpotation" class="headerlink" title="lineaer interpotation"></a>lineaer interpotation</h4><p><img src="2020-3-10-compute-quantile/Linear_interpolation.png" alt="Linear_interpolation.png"></p>
+<h4 id="lineaer-interpotation"><a href="#lineaer-interpotation" class="headerlink" title="lineaer interpotation"></a>lineaer interpotation</h4><p><img src="2020-3-10-compute-quantile/linear_interpolation.png" alt="linear_interpolation.png"></p>
 <h4 id="The-Apache-Commons-Mathematics-Library"><a href="#The-Apache-Commons-Mathematics-Library" class="headerlink" title="The Apache Commons Mathematics Library"></a>The Apache Commons Mathematics Library</h4><p>Let n be the length of the (sorted) array and 0 &lt; p &lt;= 100 be the desired percentile.</p>
 <ol>
 <li>If n = 1 return the unique array element (regardless of the value of p); otherwise</li>
@@ -189,7 +189,7 @@
 </ol>
 <p>=&gt; approximation algorithm</p>
 <h2 id="Histogram-algorithm"><a href="#Histogram-algorithm" class="headerlink" title="Histogram algorithm"></a>Histogram algorithm</h2><p>Prometheus use it for Histogram(metrics type)</p>
-<p><img src="2020-3-10-compute-quantile/Example_histogram.png" alt="Example_histogram.png"></p>
+<p><img src="2020-3-10-compute-quantile/example_histogram.png" alt="example_histogram.png"></p>
 <p>steps:</p>
 <ol>
 <li>Pick buckets.</li>
