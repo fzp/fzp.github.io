@@ -173,7 +173,7 @@
 </tr>
 </tbody></table>
 <p>$$ p = \frac{x}{N+1} $$</p>
-<h4 id="lineaer-interpotation"><a href="#lineaer-interpotation" class="headerlink" title="lineaer interpotation"></a>lineaer interpotation</h4><p><img src="2020-3-10-compute-quantile/linear_interpolation.png" alt="linear_interpolation.png"></p>
+<h4 id="lineaer-interpotation"><a href="#lineaer-interpotation" class="headerlink" title="lineaer interpotation"></a>lineaer interpotation</h4><p><img src="2020-3-10-compute-quantile/linearInterpolation.png" alt="linearInterpolation.png"></p>
 <h4 id="The-Apache-Commons-Mathematics-Library"><a href="#The-Apache-Commons-Mathematics-Library" class="headerlink" title="The Apache Commons Mathematics Library"></a>The Apache Commons Mathematics Library</h4><p>Let n be the length of the (sorted) array and 0 &lt; p &lt;= 100 be the desired percentile.</p>
 <ol>
 <li>If n = 1 return the unique array element (regardless of the value of p); otherwise</li>
@@ -189,7 +189,7 @@
 </ol>
 <p>=&gt; approximation algorithm</p>
 <h2 id="Histogram-algorithm"><a href="#Histogram-algorithm" class="headerlink" title="Histogram algorithm"></a>Histogram algorithm</h2><p>Prometheus use it for Histogram(metrics type)</p>
-<p><img src="2020-3-10-compute-quantile/example_histogram.png" alt="example_histogram.png"></p>
+<p><img src="2020-3-10-compute-quantile/exampleHistogram.png" alt="exampleHistogram.png"></p>
 <p>steps:</p>
 <ol>
 <li>Pick buckets.</li>
@@ -223,7 +223,7 @@
 <p><img src="2020-3-10-compute-quantile/merge.PNG" alt="merge.PNG"></p>
 <h4 id="Scale-function"><a href="#Scale-function" class="headerlink" title="Scale function"></a>Scale function</h4><p>how Centroids left weight: [w1,w2,w3] comes from?</p>
 <p>$$ f(q)=\frac{\delta}{2\pi} sin^{-1}(2q-1)$$</p>
-<p><img src="2020-3-10-compute-quantile/scale_function.PNG" alt="scale_function.PNG"></p>
+<p><img src="2020-3-10-compute-quantile/scaleFunction.PNG" alt="scaleFunction.PNG"></p>
 <h4 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h4><p><img src="2020-3-10-compute-quantile/query.PNG" alt="query.PNG"></p>
 <h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>We introduce <a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/stat/descriptive/rank/Percentile.html">Apache math percentile</a> as benchmark, it calculate percentile with no compression (not suitable for big data, but accurate)</p>
 <p><img src="2020-3-10-compute-quantile/quantileCompare.PNG" alt="quantileCompare.PNG"></p>
