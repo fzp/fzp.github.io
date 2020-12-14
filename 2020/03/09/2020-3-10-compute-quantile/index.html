@@ -229,7 +229,27 @@
 <p><img src="quantileCompare.png" alt="quantileCompare.png"></p>
 <p>In the winner column, t means t-Digest. latencyHistogram is an Object to calculate quantile using Histogram Algorithm, so l means latencyHistogram.</p>
 <p>Only quantile 0.4 and quantile 0.9, the Bucket algorithm wins. Otherwise, the t-Digest is better.</p>
-<p>Most t-Digest’s error rate is less than 1%(except 1 case), some of them less than  0.1%.<br>Most latencyHistogram’s error rate is larger than 1%(except 1 case), several times larger than t-Digest’s. </p>
+<p>Most t-Digest’s error rate is less than 1%(except 1 case), some of them less than  0.1%.<br>Most latencyHistogram’s error rate is larger than 1%(except 1 case), several times larger than t-Digest’s.</p>
+<p>We also compare to their RMSE（Root Mean Squard Error）and RMSE where quantile &gt;=0.95</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>t-digest error</th>
+<th>latency histogram error</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RMSE</td>
+<td>0.035510150597576</td>
+<td>0.072033769203999</td>
+</tr>
+<tr>
+<td>RMSE(&gt;=0.95)</td>
+<td>0.00125621250338</td>
+<td>0.034628234255414</td>
+</tr>
+</tbody></table>
 <p>So t-Digest is better.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Service_level_indicator">https://en.wikipedia.org/wiki/Service_level_indicator</a></li>
