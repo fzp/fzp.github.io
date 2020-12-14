@@ -205,9 +205,18 @@ In the winner column, t means t-Digest. latencyHistogram is an Object to calcula
 Only quantile 0.4 and quantile 0.9, the Bucket algorithm wins. Otherwise, the t-Digest is better.
 
 Most t-Digest's error rate is less than 1%(except 1 case), some of them less than  0.1%.
-Most latencyHistogram's error rate is larger than 1%(except 1 case), several times larger than t-Digest’s. 
+Most latencyHistogram's error rate is larger than 1%(except 1 case), several times larger than t-Digest’s.
+
+We also compare to their RMSE（Root Mean Squard Error）and RMSE where quantile >=0.95
+
+Method|t-digest error|latency histogram error
+--|--|--
+RMSE|0.035510150597576|0.072033769203999
+RMSE(>=0.95)|0.00125621250338|0.034628234255414
 
 So t-Digest is better.
+
+
 
 ## References
 
