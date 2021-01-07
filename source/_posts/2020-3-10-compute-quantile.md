@@ -68,12 +68,12 @@ medium of {7, 8, 10, 15} is 8 or 9?
 
 1. the neearest-rank method
 
-value|rank|percentile
------|----|---------
-7    |1   |25
-8    |2   |50
-10   |3   |75
-15   |4   |100
+| value | rank | percentile |
+| ----- | ---- | ---------- |
+| 7     | 1    | 25         |
+| 8     | 2    | 50         |
+| 10    | 3    | 75         |
+| 15    | 4    | 100        |
 
 2. Map the middle rank to 50th percentile
 
@@ -81,34 +81,34 @@ There are 3 variants. For large samples, the different methods agree closely
 
 2.1. 
 
-value|rank|percentile
------|----|---------
-7    |1   |12.5
-8    |2   |37.5
-10   |3   |62.5
-15   |4   |87.5
+| value | rank | percentile |
+| ----- | ---- | ---------- |
+| 7     | 1    | 12.5       |
+| 8     | 2    | 37.5       |
+| 10    | 3    | 62.5       |
+| 15    | 4    | 87.5       |
 
 $$ p = \frac{1}{N} (x-\frac{1}{2}) $$
 
 2.2. 
 
-value|rank|percentile
------|----|---------
-7    |1   |0
-8    |2   |33.3
-10   |3   |66.6
-15   |4   |100
+| value | rank | percentile |
+| ----- | ---- | ---------- |
+| 7     | 1    | 0          |
+| 8     | 2    | 33.3       |
+| 10    | 3    | 66.6       |
+| 15    | 4    | 100        |
 
 $$ p = \frac{x-1}{N-1} $$
 
 2.3.
 
-value|rank|percentile
------|----|---------
-7    |1   |20
-8    |2   |40
-10   |3   |60
-15   |4   |80
+| value | rank | percentile |
+| ----- | ---- | ---------- |
+| 7     | 1    | 20         |
+| 8     | 2    | 40         |
+| 10    | 3    | 60         |
+| 15    | 4    | 80         |
 
 $$ p = \frac{x}{N+1} $$
 
@@ -198,7 +198,21 @@ $$ f(q)=\frac{\delta}{2\pi} sin^{-1}(2q-1)$$
 
 We introduce [Apache math percentile](https://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/stat/descriptive/rank/Percentile.html) as benchmark, it calculate percentile with no compression (not suitable for big data, but accurate)
 
-![quantileCompare.png](quantileCompare.png)
+| quantile | T-Digest | Latency Histogram | Apache Percentile | T-Digest error        | Latency Histogram error |
+| -------- | -------- | ----------------- | ----------------- | --------------------- | ----------------------- |
+| 0.05     | 57.94    | 52                | 58                | -0.001034482758621    | -0.103448275862069      |
+| 0.1      | 60.91    | 56                | 61                | -0.001475409836066    | -0.081967213114754      |
+| 0.2      | 65.95    | 62                | 66                | -0.000757575757576    | -0.060606060606061      |
+| 0.3      | 70.22    | 69                | 70                | 0.003142857142857     | -0.014285714285714      |
+| 0.4      | 76.93    | 77                | 77                | -0.000909090909091    | 0                       |
+| 0.5      | 89.27    | 93                | 89                | 0.003033707865169     | 0.044943820224719       |
+| 0.6      | 137.08   | 143               | 138               | -0.006666666666667    | 0.036231884057971       |
+| 0.7      | 202.6    | 215               | 202.6             | 0                     | 0.061204343534057       |
+| 0.8      | 366.07   | 426               | 363.4             | 0.007347275729224     | 0.172261970280683       |
+| 0.9      | 2426.46  | 2316              | 2152              | 0.12753717472119      | 0.076208178438662       |
+| 0.95     | 12173.21 | 11978             | 12174             | -6.48923936258315E-05 | -0.016099885000822      |
+| 0.99     | 14722.91 | 14395             | 14755             | -0.002174855981023    | -0.024398508980007      |
+| 1        | 15829    | 15000             | 15829             | 0                     | -0.052372228188768      |
 
 In the winner column, t means t-Digest. latencyHistogram is an Object to calculate quantile using Histogram Algorithm, so l means latencyHistogram.
 
@@ -207,16 +221,16 @@ Only quantile 0.4 and quantile 0.9, the Bucket algorithm wins. Otherwise, the t-
 Most t-Digest's error rate is less than 1%(except 1 case), some of them less than  0.1%.
 Most latencyHistogram's error rate is larger than 1%(except 1 case), several times larger than t-Digest’s.
 
-We also compare to their RMSE（Root Mean Squard Error）and RMSE where quantile >=0.95
+We also compare to their MAE(Mean Absolute Error), RMSE(Root Mean Squard Error)
 
-Method|t-digest error|latency histogram error
---|--|--
-RMSE|0.035510150597576|0.072033769203999
-RMSE(>=0.95)|0.00125621250338|0.034628234255414
+| Method       | t-digest error    | latency histogram error |
+| ------------ | ----------------- | ----------------------- |
+| MAE          | 0.011857229981624 | 0.057232929428791       |
+| MAE>=0.95    | 0.00074658279155  | 0.030956874056532       |
+| RMSE         | 0.035510150597576 | 0.072033769203999       |
+| RMSE(>=0.95) | 0.00125621250338  | 0.034628234255414       |
 
-So t-Digest is better.
-
-
+So t-Digest is better, especially for important data.
 
 ## References
 
