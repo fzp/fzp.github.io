@@ -8,7 +8,7 @@
     noSupport: 'The browser does not support'
   },
   hexoVersion: '5.2.0'
-} </script><meta name="generator" content="Hexo 5.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Outline"><span class="toc-number">1.</span> <span class="toc-text">Outline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Background"><span class="toc-number">2.</span> <span class="toc-text">Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SLI-Provider"><span class="toc-number">2.1.</span> <span class="toc-text">SLI Provider</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-aggregation"><span class="toc-number">2.2.</span> <span class="toc-text">Data aggregation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-quantile"><span class="toc-number">3.</span> <span class="toc-text">What is quantile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Speocialized-quantiles"><span class="toc-number">3.1.</span> <span class="toc-text">Speocialized quantiles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Normalization"><span class="toc-number">3.2.</span> <span class="toc-text">Normalization</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-to-calculate-accurate-quantile"><span class="toc-number">4.</span> <span class="toc-text">How to calculate accurate quantile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-nearest-rank-method"><span class="toc-number">4.1.</span> <span class="toc-text">The nearest-rank method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-linear-interpolation-between-closest-ranks-method"><span class="toc-number">4.2.</span> <span class="toc-text">The linear interpolation between closest ranks method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mapping-relation-bewteen-rank-and-percentile"><span class="toc-number">4.2.1.</span> <span class="toc-text">Mapping relation bewteen rank and percentile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lineaer-interpotation"><span class="toc-number">4.2.2.</span> <span class="toc-text">lineaer interpotation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-Apache-Commons-Mathematics-Library"><span class="toc-number">4.2.3.</span> <span class="toc-text">The Apache Commons Mathematics Library</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-problem-of-accurate-quantile-algorithm"><span class="toc-number">5.</span> <span class="toc-text">The problem of accurate quantile algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Histogram-algorithm"><span class="toc-number">6.</span> <span class="toc-text">Histogram algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Goodness"><span class="toc-number">6.1.</span> <span class="toc-text">Goodness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Badness"><span class="toc-number">6.2.</span> <span class="toc-text">Badness</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#t-Digest-algorithm"><span class="toc-number">7.</span> <span class="toc-text">t-Digest algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-structure"><span class="toc-number">7.1.</span> <span class="toc-text">Data structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm"><span class="toc-number">7.2.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Aggregate-Buffer-and-Merge"><span class="toc-number">7.2.1.</span> <span class="toc-text">Aggregate: Buffer and Merge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scale-function"><span class="toc-number">7.2.2.</span> <span class="toc-text">Scale function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Query"><span class="toc-number">7.2.3.</span> <span class="toc-text">Query</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">8.</span> <span class="toc-text">Experiment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">9.</span> <span class="toc-text">References</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">方镇澎</div><div class="author-info__description text-center">方镇澎 Blog Slides</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">15</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">30</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">方镇澎的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">How to compute quantile effeciently</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-10</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>use t-Digest to compute quantile in practise</p>
+} </script><meta name="generator" content="Hexo 5.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Outline"><span class="toc-number">1.</span> <span class="toc-text">Outline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Background"><span class="toc-number">2.</span> <span class="toc-text">Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SLI-Provider"><span class="toc-number">2.1.</span> <span class="toc-text">SLI Provider</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-aggregation"><span class="toc-number">2.2.</span> <span class="toc-text">Data aggregation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-quantile"><span class="toc-number">3.</span> <span class="toc-text">What is quantile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Speocialized-quantiles"><span class="toc-number">3.1.</span> <span class="toc-text">Speocialized quantiles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Normalization"><span class="toc-number">3.2.</span> <span class="toc-text">Normalization</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-to-calculate-accurate-quantile"><span class="toc-number">4.</span> <span class="toc-text">How to calculate accurate quantile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-nearest-rank-method"><span class="toc-number">4.1.</span> <span class="toc-text">The nearest-rank method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-linear-interpolation-between-closest-ranks-method"><span class="toc-number">4.2.</span> <span class="toc-text">The linear interpolation between closest ranks method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mapping-relation-bewteen-rank-and-percentile"><span class="toc-number">4.2.1.</span> <span class="toc-text">Mapping relation bewteen rank and percentile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lineaer-interpotation"><span class="toc-number">4.2.2.</span> <span class="toc-text">lineaer interpotation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-Apache-Commons-Mathematics-Library"><span class="toc-number">4.2.3.</span> <span class="toc-text">The Apache Commons Mathematics Library</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-problem-of-accurate-quantile-algorithm"><span class="toc-number">5.</span> <span class="toc-text">The problem of accurate quantile algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Histogram-algorithm"><span class="toc-number">6.</span> <span class="toc-text">Histogram algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Goodness"><span class="toc-number">6.1.</span> <span class="toc-text">Goodness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Badness"><span class="toc-number">6.2.</span> <span class="toc-text">Badness</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#t-Digest-algorithm"><span class="toc-number">7.</span> <span class="toc-text">t-Digest algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-structure"><span class="toc-number">7.1.</span> <span class="toc-text">Data structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm"><span class="toc-number">7.2.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Aggregate-Buffer-and-Merge"><span class="toc-number">7.2.1.</span> <span class="toc-text">Aggregate: Buffer and Merge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scale-function"><span class="toc-number">7.2.2.</span> <span class="toc-text">Scale function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Query"><span class="toc-number">7.2.3.</span> <span class="toc-text">Query</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">8.</span> <span class="toc-text">Experiment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">9.</span> <span class="toc-text">References</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">方镇澎</div><div class="author-info__description text-center">方镇澎 Blog Slides</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">16</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">30</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">方镇澎的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">How to compute quantile effeciently</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-10</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>use t-Digest to compute quantile in practise</p>
 <a id="more"></a>
 
 <h2 id="Outline"><a href="#Outline" class="headerlink" title="Outline"></a>Outline</h2><ul>
@@ -226,11 +226,126 @@
 <p><img src="scaleFunction.png" alt="scaleFunction.png"></p>
 <h4 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h4><p><img src="query.png" alt="query.png"></p>
 <h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>We introduce <a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/stat/descriptive/rank/Percentile.html">Apache math percentile</a> as benchmark, it calculate percentile with no compression (not suitable for big data, but accurate)</p>
-<p><img src="quantileCompare.png" alt="quantileCompare.png"></p>
+<table>
+<thead>
+<tr>
+<th>quantile</th>
+<th>T-Digest</th>
+<th>Latency Histogram</th>
+<th>Apache Percentile</th>
+<th>T-Digest error</th>
+<th>Latency Histogram error</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.05</td>
+<td>57.94</td>
+<td>52</td>
+<td>58</td>
+<td>-0.001034482758621</td>
+<td>-0.103448275862069</td>
+</tr>
+<tr>
+<td>0.1</td>
+<td>60.91</td>
+<td>56</td>
+<td>61</td>
+<td>-0.001475409836066</td>
+<td>-0.081967213114754</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>65.95</td>
+<td>62</td>
+<td>66</td>
+<td>-0.000757575757576</td>
+<td>-0.060606060606061</td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>70.22</td>
+<td>69</td>
+<td>70</td>
+<td>0.003142857142857</td>
+<td>-0.014285714285714</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>76.93</td>
+<td>77</td>
+<td>77</td>
+<td>-0.000909090909091</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>89.27</td>
+<td>93</td>
+<td>89</td>
+<td>0.003033707865169</td>
+<td>0.044943820224719</td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>137.08</td>
+<td>143</td>
+<td>138</td>
+<td>-0.006666666666667</td>
+<td>0.036231884057971</td>
+</tr>
+<tr>
+<td>0.7</td>
+<td>202.6</td>
+<td>215</td>
+<td>202.6</td>
+<td>0</td>
+<td>0.061204343534057</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>366.07</td>
+<td>426</td>
+<td>363.4</td>
+<td>0.007347275729224</td>
+<td>0.172261970280683</td>
+</tr>
+<tr>
+<td>0.9</td>
+<td>2426.46</td>
+<td>2316</td>
+<td>2152</td>
+<td>0.12753717472119</td>
+<td>0.076208178438662</td>
+</tr>
+<tr>
+<td>0.95</td>
+<td>12173.21</td>
+<td>11978</td>
+<td>12174</td>
+<td>-6.48923936258315E-05</td>
+<td>-0.016099885000822</td>
+</tr>
+<tr>
+<td>0.99</td>
+<td>14722.91</td>
+<td>14395</td>
+<td>14755</td>
+<td>-0.002174855981023</td>
+<td>-0.024398508980007</td>
+</tr>
+<tr>
+<td>1</td>
+<td>15829</td>
+<td>15000</td>
+<td>15829</td>
+<td>0</td>
+<td>-0.052372228188768</td>
+</tr>
+</tbody></table>
 <p>In the winner column, t means t-Digest. latencyHistogram is an Object to calculate quantile using Histogram Algorithm, so l means latencyHistogram.</p>
 <p>Only quantile 0.4 and quantile 0.9, the Bucket algorithm wins. Otherwise, the t-Digest is better.</p>
 <p>Most t-Digest’s error rate is less than 1%(except 1 case), some of them less than  0.1%.<br>Most latencyHistogram’s error rate is larger than 1%(except 1 case), several times larger than t-Digest’s.</p>
-<p>We also compare to their RMSE（Root Mean Squard Error）and RMSE where quantile &gt;=0.95</p>
+<p>We also compare to their MAE(Mean Absolute Error), RMSE(Root Mean Squard Error)</p>
 <table>
 <thead>
 <tr>
@@ -240,6 +355,16 @@
 </tr>
 </thead>
 <tbody><tr>
+<td>MAE</td>
+<td>0.011857229981624</td>
+<td>0.057232929428791</td>
+</tr>
+<tr>
+<td>MAE&gt;=0.95</td>
+<td>0.00074658279155</td>
+<td>0.030956874056532</td>
+</tr>
+<tr>
 <td>RMSE</td>
 <td>0.035510150597576</td>
 <td>0.072033769203999</td>
@@ -250,7 +375,7 @@
 <td>0.034628234255414</td>
 </tr>
 </tbody></table>
-<p>So t-Digest is better.</p>
+<p>So t-Digest is better, especially for important data.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Service_level_indicator">https://en.wikipedia.org/wiki/Service_level_indicator</a></li>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Quantile">https://en.wikipedia.org/wiki/Quantile</a></li>

@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="haskell"><meta name="keywords" content=""><meta name="author" content="方镇澎,undefined"><meta name="copyright" content="方镇澎"><title>haskell | 方镇澎的博客</title><link rel="shortcut icon" href="/favicon.svg"><meta name="generator" content="Hexo 5.2.0"></head><body style="margin: 0px;"><svg id="markmap" width="100%"></svg><pre id="mm" hidden>
+# Haskell
+## types
+### defination `data BookInfo = Book Int String [String]`
+#### type constructor `BookInfo`
+#### value constructor `Book`
+#### components `Int` `String` `[String]`
+### type synonyms `type CustomerID = Int`
+### algebraic data types `data Bool = False | True`
+### Pattern matching
+```Haskell
+sumList (x:xs) = x + sumList xs
+sumList []     = 0
+```
+### Record syntax
+```Haskell
+data CalendarTime = CalendarTime {
+  ctYear                      :: Int,
+  ctMonth                     :: Month,
+  ctDay, ctHour, ctMin, ctSec :: Int,
+  ctPicosec                   :: Integer,
+  ctWDay                      :: Day,
+  ctYDay                      :: Int,
+  ctTZName                    :: String,
+  ctTZ                        :: Int,
+  ctIsDST                     :: Bool
+}
+```
+### Parameterised types
+```Haskell
+data Maybe a = Just a
+             | Nothing
+```
+### Recursive types
+```Haskell
+data List a = Cons a (List a)
+            | Nil
+              deriving (Show)
+```
+## streamlining function
+### local variables
+#### let
+```Haskell
+lend amount balance = let reserve    = 100
+                          newBalance = balance - amount
+                      in if balance &lt; reserve
+                         then Nothing
+                         else Just newBalance
+```
+#### where
+```Haskell
+lend2 amount balance = if amount &lt; reserve * 0.5
+                       then Just newBalance
+                       else Nothing
+    where reserve    = 100
+          newBalance = balance - amount
+```
+### case expression
+```Haskell
+fromMaybe defval wrapped =
+    case wrapped of
+      Nothing     -&gt; defval
+      Just value  -&gt; value
+```
+### Conditional evaluation with guards
+```Haskell
+lend3 amount balance
+     | amount &lt;= 0            = Nothing
+     | amount &gt; reserve * 0.5 = Nothing
+     | otherwise              = Just newBalance
+    where reserve    = 100
+          newBalance = balance - amount
+```
+
+# Type Class
+
+## Monad
+### Type constructor `m`
+### Chain function `m a -&gt; (a -&gt; m b) -&gt; m b`
+### Inject function `a -&gt; m a`
+
+## Functor
+
+## Monoid
+
+## Traversable</pre><script src="https://cdn.jsdelivr.net/npm/d3@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-view"></script><script src="https://cdn.jsdelivr.net/npm/d3@6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view"></script><script src="https://cdn.jsdelivr.net/npm/markmap-lib/dist/browser/index.min.js"></script><script>document.getElementById("markmap").style.height = (parseInt(document.documentElement.clientHeight) * 0.99) + "px";
+const markdown = document.getElementById("mm").innerHTML;
+console.log(markdown);
+console.log(window);
+const transformer = new window.markmap.Transformer();
+const {
+    root,
+    features
+} = transformer.transform(markdown);
+const {
+    styles,
+    scripts
+} = transformer.getUsedAssets(features);
+
+const {
+    Markmap,
+    loadCSS,
+    loadJS
+} = window.markmap;
+
+if (styles) loadCSS(styles);
+if (scripts) loadJS(scripts, {
+    getMarkmap: () => window.markmap
+});
+
+Markmap.create('#markmap', null, root);</script></body></html>
