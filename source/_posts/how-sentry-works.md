@@ -1,7 +1,10 @@
 ---
-title: Sentry 是如何工作的
+title: Sentry 前端监控SDK分析
 date: 2021-03-08 12:12:39
-tags: 前端监控
+tags: 
+    - 前端监控
+    - Sentry
+    - web-vitals
 ---
 
 Sentry是开源前端监控软件。
@@ -18,6 +21,8 @@ Sentry是开源前端监控软件。
 4. 什么时候发送数据？
 5. 怎么发送数据？
 6. 如何扩展Sentry SDK？
+
+<!--more-->
 
 ## 从入口开始
 
