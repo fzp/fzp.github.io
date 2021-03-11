@@ -48,9 +48,9 @@ browserInit(finalOptions);
 vueHelper.setup();
 ```
 
-`browserInit`来自`@sentry/browser`包。这个包主要对代码进行插装(instrumentation)，记录每一次操作。
+`browserInit`来自`@sentry/browser`包。这个包主要对代码进行插装(Instrumentation)，记录每一次操作。
 
-`vueHelper.setup();`设置错误处理器并开始追踪VUE的生命周期:
+`vueHelper.setup()`设置错误处理器(`_attachErrorHandler`)并开始追踪VUE的生命周期(`_startTracing`)：
 
 ```javascript
 public setup(): void {
@@ -62,7 +62,7 @@ public setup(): void {
 }
 ```
 
-`_attachErrorHandler`利用了vue的错误处理器收集错误。捕获的错误和事件放在hub并发送到Sentry:
+`_attachErrorHandler`利用了VUE的错误处理器收集错误。捕获的错误和事件放在hub并发送到Sentry:
 
 ```javascript
 this._options.Vue.config.errorHandler = (error: Error, vm?: ViewModel, info?: string): void => {
@@ -80,7 +80,7 @@ this._options.Vue.config.errorHandler = (error: Error, vm?: ViewModel, info?: st
 
 hub和scope的[官方文档](https://docs.sentry.io/platforms/javascript/enriching-events/scopes/)。
 
-从代码看，hub是提供了一个栈用于管理scope, scope保存了一些有用的上下文信息和追踪信息，用于与捕捉到的事件同时上传Sentry:
+从代码看，hub是提供了一个栈用于管理scope, scope保存了一些有用的上下文信息和追踪信息，最后与捕捉到的事件同时上传Sentry:
 
 ```javascript
 export class Hub implements HubInterface {
@@ -91,9 +91,11 @@ export class Hub implements HubInterface {
 
 ```
 
-`_startTracing`默认记录VUE组件的`activate`, `mount`和`update`的行为。以`mount`行为为例，它会捕捉`beforeMount`事件之后到`mounted`事件之前经历的时间。具体参考VUE的生命周期。
+`_startTracing`默认记录VUE组件的`activate`, `mount`和`update`的行为。以`mount`行为为例，它会捕捉`beforeMount`事件之后到`mounted`事件之前经历的时间。具体参考[VUE的生命周期](https://cn.vuejs.org/v2/guide/instance.html)。
 
-回到`browserInit`. `browserInit`会创建`client`并绑定到`hub`。`client`包含初始的配置和这些配置对应的行为，包括发送到Sentry的操作等。
+上面是关于VUE框架的错误追踪，现在回到`browserInit`。
+
+`browserInit`会创建`client`并绑定到`hub`。`client`包含初始的配置和这些配置对应的行为，包括发送到Sentry的操作等。
 
 ```javascript
 const hub = getCurrentHub();
@@ -129,15 +131,15 @@ public setupOnce(): void {
 }
 ```
 
-在Integration的初始化方法里，经常会看到来自`@sentry/utils`包的`addInstrumentationHandler`方法。该方法用于为一些native API添加处理器(handler)，也就是插装(instrumentation)。
+在Integration的初始化方法里，经常会看到来自`@sentry/utils`包的`addInstrumentationHandler`方法。该方法用于为一些native API添加处理器(handler)，也就是插装。
 
 它的原理是将处理器注册在API下（其实就是放在一个特定数组里）。然后在相应的API和浏览器事件处理器中包装一层切面。在切面中，依次触发注册的处理器。
 
 比如在插装console API时`addInstrumentationHandler`会调用了`fill`函数。
 
-`fill`函数接收三个参数:对象，对象里的方法名和高阶函数。高阶函数接收对象里方法名对应的函数并返回一个新函数。最后将原函数替换成新函数。
+`fill`函数接收三个参数：对象，对象里的方法名和高阶函数。高阶函数接收对象里方法名对应的函数并返回一个新函数，最后将原函数替换成新函数。
 
-在下面的例子里，`console[level]`函数被替换。新函数首先触发了所有注册的处理器，再重新调用原来的`console[level]`。
+在下面的代码里，`console[level]`函数被替换。新函数首先触发了所有注册的处理器，再重新调用原来的`console[level]`。
 
 ```javascript
 ['debug', 'info', 'warn', 'error', 'log', 'assert'].forEach(function(level: string): void {
@@ -347,8 +349,8 @@ IdleTransaction是在原有transaction的功能的基础下添加了自动结束
 
 ### 怎么发送数据？
 
-使用fetch或者xhr。
+首先使用自定义的方法，没有的话使用fetch或者xhr。
 
 ### 如何扩展Sentry SDK？
 
-可以开发自己的intregration. 如果需要在某些API或事件中埋点，可以导入`@Sentry/utils`.
+可以开发自己的IIntregration. 如果需要在某些API或事件中埋点，可以导入`@Sentry/utils`.
