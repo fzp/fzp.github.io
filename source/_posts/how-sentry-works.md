@@ -24,6 +24,26 @@ Sentry是开源前端监控软件。
 
 <!--more-->
 
+## 代码结构
+
+```
+|- packages
+    |- browser
+    |- vue
+    |- core
+    |- utils
+    |- tracing
+```
+
+Sentry SDK的代码分为多个模块，放在Github仓库的packages目录下。
+
+- browser目录提供浏览器API的基本插装（Instumentation）和客户端代码。
+- vue目录包含了browser的内容，同时VUE异常监控和生命周期追踪。
+- utils提供了对于浏览API插装用的功能性函数。
+- core提供了接口定义，基本的类和方法。
+- tracing目录提供了perfomance监控相关的插装。
+
+
 ## 从入口开始
 
 在分析具体问题之前，我们回到代码的入口，查看具体的代码做了什么事情。
@@ -103,7 +123,7 @@ const client = new clientClass(options);
 hub.bindClient(client);
 ```
 
-`bindClient`调用了setupIntegrations方法，初始化integratinos.
+`bindClient`调用了setupIntegrations方法，初始化integrations.
 
 ```javascript
 if (client && client.setupIntegrations) {
@@ -138,6 +158,15 @@ public setupOnce(): void {
 比如在插装console API时`addInstrumentationHandler`会调用了`fill`函数。
 
 `fill`函数接收三个参数：对象，对象里的方法名和高阶函数。高阶函数接收对象里方法名对应的函数并返回一个新函数，最后将原函数替换成新函数。
+
+```javascript
+function fill(source: { [key: string]: any }, name: string, replacementFactory: (...args: any[]) => any){
+    const original = source[name] as () => any;
+    const wrapped = replacementFactory(original) as WrappedFunction;
+    ...
+    source[name] = wrapped;
+}
+```
 
 在下面的代码里，`console[level]`函数被替换。新函数首先触发了所有注册的处理器，再重新调用原来的`console[level]`。
 
@@ -299,7 +328,7 @@ addInstrumentationHandler({
 })
 ```
 
-跟进`startTransaction`，它是`routingInstrumentation`传入的`_createRouteTransaction`方法。这个方法启动了一个IdleTransaction，然后为IdleTransaction注册了一个函数，这个函数在transaction结束前回调，它的主要的作用是为transaction添加了performance相关数据和调整了transaction的时间。
+跟进`startTransaction`，它是`routingInstrumentation`传入的`_createRouteTransaction`方法。这个方法启动了一个IdleTransaction，然后为IdleTransaction注册了一个回调函数`registerBeforeFinishCallback`。这个函数在transaction结束前回调，它的主要的作用是为transaction添加了performance相关数据和调整了transaction的时间。
 
 ```javascript
 const idleTransaction = startIdleTransaction(
