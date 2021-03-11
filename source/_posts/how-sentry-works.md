@@ -315,7 +315,7 @@ idleTransaction.registerBeforeFinishCallback((transaction, endTimestamp) => {
 });
 ```
 
-IdleTransaction是在原有transaction的功能的基础下添加了自动结束的功能。它的基本原理是心跳检查。即定时检查发生的活动（网络请求）。如果连续三次（默认间隔5秒）检查所有活动的状态都没有改变，则结束transaction并上传数据。
+IdleTransaction是在原有transaction的功能的基础下添加了自动结束的功能。它的基本原理是心跳检查。即定时检查发生的活动（网络请求）。如果连续三次（默认间隔5秒）检查所有活动的状态都没有改变，则结束transaction并上传数据。另外，如果网页的可见性发生变化，比如切换到别的网页，都会结束transaction。
 
 `addPerformanceEntries`从两方面获取数据，一是直接从浏览器的performance API中获取数据，二是从[web-vitals](https://github.com/GoogleChrome/web-vitals)包提供的方法里获取CLS, LCP, FID, TTFB等数据。
 
