@@ -23,11 +23,10 @@ tags:
 ## 代码架构
 
 ```
-|- packages
-    |- sentry-spring
-    |- sentry-spring-boot-starter
-    |- sentry-logback
-    |- sentry
+|- sentry-spring
+|- sentry-spring-boot-starter
+|- sentry-logback
+|- sentry
 ```
 
 Sentry SDK的代码分为多个模块，放在Github仓库的根目录下。
@@ -56,9 +55,9 @@ Java SDK实现了上述的数据结构。在任何Java项目里，都可以导�
 
 在初始化阶段，只需在`application.properties` 或 `application.yml`里添加配置信息即可。这些配置信息会自动注入到相应的对象中。
 
-它的实现原理是利用了[Spring Boot starter自动装配](https://docs.spring.io/spring-boot/docs/2.1.18.RELEASE/reference/html/boot-features-developing-auto-configuration.html)的特性。
+它的实现原理是利用了[Spring Boot Starter自动装配](https://docs.spring.io/spring-boot/docs/2.1.18.RELEASE/reference/html/boot-features-developing-auto-configuration.html)的特性。
 
-> SpringBoot 定义了一套接口规范，这套规范规定：SpringBoot 在启动时会扫描外部引用 jar 包中的META-INF/spring.factories文件，将文件中配置的类型信息加载到 Spring 容器（此处涉及到 JVM 类加载机制与 Spring 的容器知识），并执行类中定义的各种操作。对于外部 jar 来说，只需要按照 SpringBoot 定义的标准，就能将自己的功能装置进 SpringBoot。
+> SpringBoot 定义了一套接口规范，SpringBoot 在启动时会扫描外部引用 jar 包中的META-INF/spring.factories文件，将文件中配置的类型信息加载到 Spring 容器。
 
 查看`META-INF/spring.factories`.两个自动装配入口。
 
@@ -76,26 +75,28 @@ io.sentry.spring.boot.SentryLogbackAppenderAutoConfiguration
 @Bean
 public @NotNull SentryLogbackInitializer sentryLogbackInitializer(
     final @NotNull SentryProperties sentryProperties) {
-return new SentryLogbackInitializer(sentryProperties);
+    return new SentryLogbackInitializer(sentryProperties);
 }
 ```
 
-该对象实现了`GenericApplicationListener`接口。实际上是监听Spring的`ContextRefreshedEvent`事件。
+SentryLogbackInitializer实现了`GenericApplicationListener`接口。实际上是监听Spring的`ContextRefreshedEvent`事件。
 
 ```Java
 @Override
 public boolean supportsEventType(final @NotNull ResolvableType eventType) {
-return eventType.getRawClass() != null
-    && ContextRefreshedEvent.class.isAssignableFrom(eventType.getRawClass());
+    return eventType.getRawClass() != null
+        && ContextRefreshedEvent.class.isAssignableFrom(eventType.getRawClass());
 }
 ```
 
-该事件在Spring容器里所有对象都实例化后触发。捕捉到事件后，`sentryAppender.start()`对Sentry进行了初始化，然后将sentryAppender加入到logger。Appender用于将日志事件发送到目的地。sentryAppender将日志发送到Sentry。
+该事件在Spring容器里所有对象都实例化后触发。事件被捕捉后调用SentryLogbackInitializer的`onApplicationEvent()`. 在该方法里首先创建了SentryAppender。Appender在LogBack概念里是将日志事件发送到目的地的，sentryAppender就是将日志发送到Sentry。然后调用`sentryAppender.start()`对Sentry进行了初始化，最后将sentryAppender加入到logger。
 
 ```Java
 @Override
 public void onApplicationEvent(final @NotNull ApplicationEvent event) {
     final Logger rootLogger = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+    ...
+    final SentryAppender sentryAppender = new SentryAppender();
     ...
     sentryAppender.start();
     rootLogger.addAppender(sentryAppender);
@@ -118,11 +119,11 @@ public void onApplicationEvent(final @NotNull ApplicationEvent event) {
 
 ### SentryAutoConfiguration
 
-回到另一个配置入口SentryAutoConfiguration。创建了Hub对象，Spring MVC相关对象， performance相关对象，传输对象工厂等。Hub对象由于捕捉和发送异常的，之前Hub在前端SDK中已经分析过，基本逻辑是一致的。Spring MVC和performance相关对象是收集数据用的。传输对象工厂用于创建发送到Sentry的客户端。
+回到另一个配置入口SentryAutoConfiguration。它创建了Hub对象，Spring MVC相关对象， performance相关对象，传输对象工厂等。Hub对象用于捕捉和发送异常，之前Hub在前端SDK中已经分析过，基本逻辑是一致的。Spring MVC和performance相关对象是收集数据用的。传输对象工厂用于创建发送到Sentry的客户端。
 
 #### Spring MVC相关对象
 
-Spring MVC相关对象都在主要有SentryRequestResolver, SentrySpringRequestListener, SentryExceptionResolver, SentryTracingFilter.
+Spring MVC相关对象主要有SentryRequestResolver, SentrySpringRequestListener, SentryExceptionResolver, SentryTracingFilter.
 
 SentryRequestResolver主要是获取Http request相关信息并记录下来。
 
@@ -141,7 +142,7 @@ public @NotNull Request resolveSentryRequest(final @NotNull HttpServletRequest h
 }
 ```
 
-SentrySpringRequestListener实现了ServletRequestListener用于监听http请求。它主要用于初始化scope,添加breadscrumb并将前面的SentryRequestResolver加到scope的事件处理器中。事件处理器会在捕捉到错误的执行。
+SentrySpringRequestListener实现了ServletRequestListener用于监听http请求。它主要用于初始化scope，添加breadscrumb并将前面的SentryRequestResolver加到scope的事件处理器中。事件处理器会在捕捉到错误的执行。
 
 ```Java
 public void requestInitialized(ServletRequestEvent sre) {
@@ -161,7 +162,7 @@ public void requestInitialized(ServletRequestEvent sre) {
 }
 ```
 
-SentryExceptionResolver实现了HandlerExceptionResolver从而捕捉Spring全局异常,最后通过`hub.captureEvent(event)`发送给Sentry.
+SentryExceptionResolver实现了HandlerExceptionResolver从而捕捉Spring Boot全局异常，最后通过`hub.captureEvent(event)`发送给Sentry.
 
 ```Java
 @Override
@@ -200,9 +201,11 @@ public FilterRegistrationBean<SentryTracingFilter> sentryTracingFilter(
 }
 ```
 
-从@ConditionalOnProperty注解可知，SentryTracingFilter只有在`sentry.enable-tracing=true`的时候才创建。它的作用是开启一个transaction，并在执行完所有filter后（包括业务代码）关闭transaction。`finish()`里面调用了`hub.captureTransaction(transaction);` 将transation发送给Sentry.
+从@ConditionalOnProperty注解可知，SentryTracingFilter只有在`sentry.enable-tracing=true`的时候才创建。
 
-另外，注意到代码里从头文件中取出了sentryTraceHeader。这是前端传过来的trace Id, 如果前端也配有Sentry,那么前后端的性能性能监控就能联合起来。
+下面代码里的doFilterInternal是SentryTracingFilter的过滤器逻辑。它的作用是开启一个transaction，并在执行完所有filter后（包括业务代码）关闭transaction。`finish()`里面调用了`hub.captureTransaction(transaction);` 将transation发送给Sentry.
+
+另外，注意到代码里从头文件中取出了sentryTraceHeader。这是前端传过来的trace Id, 如果前端也配有Sentry,那么前后端的性能监控就能连结起来。
 
 ```Java
 @Override
@@ -232,7 +235,7 @@ protected void doFilterInternal(){
 
 ### performance相关对象
 
-此处引入了Spring 配置类`SentryTransactionPointcutConfiguration`和`SentrySpanPointcutConfiguration`.它们分别定义了以@SentryTransaction和@SentrySpan注解为标记的切点。同时还导入了`SentryAdviceConfiguration`配置类，定义了处理切点函数行为的类sentryTransactionAdvice和SentrySpanAdvice。
+此处引入了Spring 配置类`SentryTransactionPointcutConfiguration`和`SentrySpanPointcutConfiguration`。它们分别定义@SentryTransaction和@SentrySpan注解的切点。同时还导入了`SentryAdviceConfiguration`配置类，定义了处理切点行为的类sentryTransactionAdvice和SentrySpanAdvice。
 
 以`SentrySpanPointcutConfiguration`为例。它定义了两类切点，一类是Class上带有@SentrySpan的方法。另一类是直接带有@SentrySpan的方法。
 
@@ -244,11 +247,20 @@ public @NotNull Pointcut sentrySpanPointcut() {
 }
 ```
 
-处理@SentrySpan的行为定义在SentrySpanAdvice。主要将该函数调用行为以span方式添加到transaction里。
+处理@SentrySpan的行为定义在SentrySpanAdvice。他的主要作用是将该函数的调用以span方式记录到transaction里。
 
 ```Java
 final String operation = resolveSpanOperation(targetClass, mostSpecificMethod, sentrySpan);
 final ISpan span = activeSpan.startChild(operation);
+```
+
+另外，对于@SentryTransaction. 如果已经有活跃的transaction, @SentryTransaction不会启动一个新的transaction.
+
+```Java
+if (isTransactionActive) {
+    // transaction is already active, we do not start new transaction
+    return invocation.proceed();
+}
 ```
 
 ### 传输对象工厂
@@ -285,11 +297,11 @@ public ITransport create(
 
 ## 回答问题
 
-现在基本摸清了Sentry 后端SDK的代码。回到我们前面提到的问题。
+现在基本摸清了Sentry后端SDK的代码。回到我们前面提到的问题。
 
 ### 如何收集错误？
 
-对于Java, 手动收集。
+对于Java, 利用sentry提供的方法手动收集。
 
 对于Spring Boot, 一是利用它提供的HandlerExceptionResolver捕捉全局异常。 二是利用日志系统的收集。
 
@@ -297,13 +309,13 @@ public ITransport create(
 
 对于Java, 手动收集。
 
-对于Spring Boot, 一是利用了Servlet的filter, 开启和完成transaction。
+对于Spring Boot, 一是利用了Servlet的filter, 开启和完成transaction。二是通过手动标记@SentryTransaction和@SentrySpan注解。
 
 ### 如何追踪路径？
 
-在日志系统里添加breadcrumbs.
+在日志系统里添加Breadcrumb.
 
-利用Spring的AOP机制，跟据@SentryTransaction和@SentrySpan获取更多调用细节。
+利用Spring的AOP机制，跟据@SentryTransaction和@SentrySpan往Transaction里面添加Span。
 
 ### 什么时候发送数据？
 
@@ -317,4 +329,4 @@ Spring boot框架下默认使用CloseableHttpAsyncClient。
 
 ### 如何扩展Sentry SDK？
 
-在 Java SDK中也有Intregration的概念，但大多数用在了安卓端。在后端SDK中相对较少。如果在Spring boot中， 利用Spring Boot Starter扩展就够了。
+在 Java 相关的SDK中也有Intregration的概念，但大多数用在了安卓端。在后端SDK中相对较少。如果在Spring boot中，利用Spring Boot Starter扩展就够了。
