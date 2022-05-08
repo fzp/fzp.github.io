@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="节点升级问题"><meta name="keywords" content="Ebay,Cluster"><meta name="author" content="方镇澎"><meta name="copyright" content="方镇澎"><title>节点升级问题 | 方镇澎的博客</title><link rel="shortcut icon" href="/favicon.svg"><link rel="stylesheet" href="/css/index.css?version=1.9.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.3"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.2.0'
+} </script><meta name="generator" content="Hexo 5.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9%E5%8D%87%E7%BA%A7"><span class="toc-number">1.</span> <span class="toc-text">集群节点升级</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.3.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%881%EF%BC%9A-%E6%9A%B4%E5%8A%9B%E6%B1%82%E8%A7%A3"><span class="toc-number">1.3.1.</span> <span class="toc-text">方案1： 暴力求解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%882%EF%BC%9A-%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5"><span class="toc-number">1.3.2.</span> <span class="toc-text">方案2： 贪心策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%883%EF%BC%9A%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="toc-number">1.3.3.</span> <span class="toc-text">方案3：启发式算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.1.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.2.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.3.</span> <span class="toc-text">使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%A0%B7%E4%BE%8B"><span class="toc-number">1.5.</span> <span class="toc-text">测试样例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%A0%B7%E4%BE%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">生成测试样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%A0%B7%E4%BE%8B%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.5.2.</span> <span class="toc-text">测试样例格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%A0%B7%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="toc-number">1.5.3.</span> <span class="toc-text">测试样例说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.6.</span> <span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%94%B9%E8%BF%9B%E6%83%B3%E6%B3%95"><span class="toc-number">1.7.</span> <span class="toc-text">一些改进想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">方镇澎</div><div class="author-info__description text-center">方镇澎 Blog Slides</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">21</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">36</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">方镇澎的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">节点升级问题</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-06-11</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>本问题是Ebay 基础架构组面试项目，实际项目中提出的问题。我的解答是面试候选者中的最优答案。</p>
+<p>项目地址： <a target="_blank" rel="noopener" href="https://github.com/fzp/cluster_upgrade">https://github.com/fzp/cluster_upgrade</a></p>
+<a id="more"></a>
+
+<h1 id="集群节点升级"><a href="#集群节点升级" class="headerlink" title="集群节点升级"></a>集群节点升级</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>我们的集群里5000台节点，每个节点上运行了约50个不同的application， 集群上application的种类大概有4000个。</p>
+<p>对于生产环境，我们要做到高可用，因此每个application都会运行多份（10到200之间），而且是运行在不同的机器上。</p>
+<p>不同的application会定义个可以被同时中断的数目，比如app1有10个replica，我们定义至多可以同时中断2个。</p>
+<p>我们真实的生产环境有一个这样的需求：基于安全原因，我们要尽可能快的对集群里面的所有机器的操作系统升级，而升级需要重启机器， 而重启机器就会导致上面运行的application有down time。</p>
+<p>因为是生产环境，在不能违反集群里运行的所有application所定义的可被中断的数目下，尽可能找到最快的升级路径。</p>
+<p>我们定义如下的数据结构:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DisruptionBudget</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> disruptionAllowed;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> appName;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> nodeName;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> appName;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> nodeName;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中DisruptionBudget里定义了某个application可以被中断的数目以及appName，如果appName跟Application的appName匹配，就说明这个Application是被他管理的。</p>
+<p>比如，集群里有三台节点，运行了3个application，每个app有2个replica，每个app能被同时中断的数目都是1</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">node list:</span><br><span class="line"></span><br><span class="line">[Node&#123;nodeName: node1&#125;,</span><br><span class="line"></span><br><span class="line">Node&#123;nodeName: node2&#125;,</span><br><span class="line"></span><br><span class="line">Node&#123;nodeName: node3&#125;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app list:</span><br><span class="line"></span><br><span class="line">app1: [Application&#123;appName: app1, nodeName: node1&#125;, Application&#123;appName: app1, nodeName: node2&#125;]</span><br><span class="line"></span><br><span class="line">app2: [Application&#123;appName: app2, nodeName: node1&#125;, Application&#123;appName: app2, nodeName: node2&#125;]</span><br><span class="line"></span><br><span class="line">app3: [Application&#123;appName: app3, nodeName: node2&#125;, Application&#123;appName: app3, nodeName: node3&#125;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DisruptionBudget list:</span><br><span class="line"></span><br><span class="line">[DisruptionBudget&#123;disruptionAllowed: 1, appName: app1&#125;,</span><br><span class="line"></span><br><span class="line">DisruptionBudget&#123;disruptionAllowed: 1, appName: app2&#125;,</span><br><span class="line"></span><br><span class="line">DisruptionBudget&#123;disruptionAllowed: 1, appName: app3&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>那这个最快升级路径如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">group #1：[node1, node3]</span><br><span class="line">group #2：[node2]</span><br></pre></td></tr></table></figure>
+
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><p>介绍解决方案，包括可运行的代码、以及覆盖各种情况的测试用例； 5000台节点&amp;4000个应用的计算能在10min之内完成</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案1：-暴力求解"><a href="#方案1：-暴力求解" class="headerlink" title="方案1： 暴力求解"></a>方案1： 暴力求解</h3><p>由于application在节点中的分布随机性较大并且application可中断数目范围没有很强的约束。 因此找到求最优解的快速算法是比较困难的。</p>
+<p>一种求解最优解的方案是暴力求解。过程如下：</p>
+<ol>
+<li>枚举所有节点的分组情况。</li>
+<li>验证每种分组情况是否符合约束条件。</li>
+<li>分组数目最小的方案就是最优解。</li>
+</ol>
+<p>第一步相当于求基数为n的集合的划分。 划分的数目被称作<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B4%9D%E5%B0%94%E6%95%B0">贝尔数</a>.<br>它的增长速度比一般的指数函数都要快。因此对于有5000个节点的集群，是不可能在10min之内完成的，这不符合要求。</p>
+<p>第二步中验证每个分组情况是否符合约束条件可在多项式时间内完成。具体的做法是在每个group中为每个application<br>维护一个计数器，统计每个group中application的出现次数，再将它与disruptionAllowed进行比较即可。</p>
+<p>第三步因为要求最小的解，因此可以从节点分组数目较小的情况开始验证。一旦有出现可行解即为最优解。这样可以缩短暴力求解时间。</p>
+<p>总而言之，由于第一步中时间复杂度过高，因此该方案不能成为一个可以接受的方案。</p>
+<h3 id="方案2：-贪心策略"><a href="#方案2：-贪心策略" class="headerlink" title="方案2： 贪心策略"></a>方案2： 贪心策略</h3><p>由于求解最优解的方案时间复杂度过高， 因此我们转而寻求近似算法，利用贪心策略尽可能地求出较快的升级路径。</p>
+<p>一般而言，如果每个group包含的节点数比较多，那么最终group的数目也会比较少。 基于这个理论，<em>我们的贪心策略就是将节点尽可能地塞进一个group中。</em></p>
+<p>方案如下：</p>
+<ol>
+<li>先取一个空group.</li>
+<li>遍历所有节点， 验证能否将该节点添加进group。如何可以，则添加节点进入当前group中。</li>
+<li>剩下的节点重复上述过程，直到所有节点都属于某一个group.</li>
+</ol>
+<p>首先，我们考虑算法的有穷行，也就是能否在有限个步骤后终止。 如果所有节点的disruptionAllowed都大于0，那么每次迭代，group总能够添加一个节点。<br>如果存在一个节点的disruptionAllowed小于等于0，那么包含该application的节点无论如何都是不能停机的。因此解不存在，可以终止算法。 所以我们上面的算法总是能够终止的。</p>
+<p>接着，我们考虑算法的复杂度，因为每次最少能添加一个节点。所以最多分为n个group,n为节点数目。 又每次分组遍历了所有节点，每遍历一个节点需要验证k个application，其中k为节点最大数目。所以它的最糟糕情况下的复杂度是O(<br>kn^2).</p>
+<p>最后，这个方法大多数情况下表现是不错的。它能够解决问题描述中提到的例子。但在下面这个简单例子中，它不能够得到最优解。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>node 1</th>
+<th>node 2</th>
+<th>node 3</th>
+<th>node 4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>app 1</td>
+<td></td>
+<td></td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr>
+<td>app 2</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+</tbody></table>
+<p>标记O的地方表示application的replica在该节点上。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DisruptionBudget list:</span><br><span class="line"></span><br><span class="line">[DisruptionBudget&#123;disruptionAllowed: 1, appName: app1&#125;,</span><br><span class="line"></span><br><span class="line">DisruptionBudget&#123;disruptionAllowed: 2, appName: app2&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运用上述贪心策略得到的结果为</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">group #1：[node1, node2]</span><br><span class="line">group #2：[node3]</span><br><span class="line">group #3：[node4]</span><br></pre></td></tr></table></figure>
+
+<p>但最优解为</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">group #1：[node1, node3]</span><br><span class="line">group #2：[node2, node4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="方案3：启发式算法"><a href="#方案3：启发式算法" class="headerlink" title="方案3：启发式算法"></a>方案3：启发式算法</h3><p>在上面的情况中，原有的贪心策略选择了两个价值相对较低的两个节点合并为一组，导致剩下的节点因为过多的约束条件导致多使用了一个group.</p>
+<p>那么怎么选择价值更高的节点呢？又如何定义节点的价值呢？我们希望通过节点的价值启发我们更贪心地选择节点。</p>
+<p>回到我们的DisruptionBudget. 我们可以通过DisruptionBudget来估算group数目最小值的一个下界。</p>
+<p>比如说app1的总数目是r，disruptionAllowed是d,那么我们至少需要<code>(r+d-1)/d</code>个group才能符合这个app1的约束条件。</p>
+<p><code>(r+d-1)/d</code>就可以看作应用的价值。价值越高，那么这个应用就越应该提前选取，否则由于上述约束条件的存在， 后面还是需要再分为<code>(r+d-1)/d</code>个组。</p>
+<p>上面仅仅定义了一个application的价值。一个节点包含多个application, 如何定义节点的价值？</p>
+<p>节点的价值取决于节点中价值大的application。只有价值大的application减少了，才能在后续的分组中得到更少数目的group.</p>
+<p>所以节点价值的比较方法是先求出节点中所有application的价值，然后按价值进行倒序排序，最后按顺序一一比较application的价值。<br>价值大的application相对应的节点价值也越大。如果相等，再继续比较下一个application。</p>
+<p>现在我们已经定义了节点的价值。下面给出启发式算法的流程。</p>
+<ol>
+<li>创建一个空的group。</li>
+<li>使用一个优先队列存放所有的节点。每次取出价值最高的节点。</li>
+<li>验证能否将该节点添加进group。如何可以，则添加节点进入当前group中。</li>
+<li>剩下的节点重复上述过程，直到所有节点都属于某一个group.</li>
+</ol>
+<p>相比于原有的贪心策略。这里多了一步，每次选择价值最高的节点进入到group中。</p>
+<p>值得注意的是，当我们把一个节点放入到group中的时候，它会影响到其他节点的价值。</p>
+<p>比如说node1包含了app1. app1的replica是3, disruptionAllowed是2. 那么app1的价值是(3+2-1)/2=2. 假设node1加入到group1中，app1的replica变为2，它的价值变成了(<br>1+2-1)/2=1.</p>
+<p>但庆幸的是，在为一个group选取节点的过程中，由于disruptionAllowed的限制，application的价值最多减少1。因此影响不会太大。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>实现上，选择较为熟悉的Java语言进行开发，Gradle作为构建工具， JUnit作为测试框架。</p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p>src/main/java/fzp下的目录结构</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">+-- entity</span><br><span class="line">|   +-- greed</span><br><span class="line">    |   +-- GApplication</span><br><span class="line">    |   +-- GGroup</span><br><span class="line">    |   +-- GNode</span><br><span class="line">    |   +-- GReader</span><br><span class="line">|   +-- heuristic</span><br><span class="line">    |   +-- HApplication</span><br><span class="line">    |   +-- HGroup</span><br><span class="line">    |   +-- HNode</span><br><span class="line">    |   +-- HReader</span><br><span class="line">+-- solution</span><br><span class="line">|   +-- GreedSolution.java</span><br><span class="line">|   +-- HeuristicSolution.java</span><br><span class="line">|   +-- HeuristicProSolution.java</span><br><span class="line">+-- utils</span><br><span class="line">|   +-- BestEstimation.java</span><br><span class="line">|   +-- CaseGenerator.java</span><br><span class="line">+-- Application.java</span><br><span class="line">+-- Batch.java</span><br></pre></td></tr></table></figure>
+
+<p>entity目录下定义的是算法用到的实体，比如application, group, node等。disruptionAllowed作为属性放入到application的实体里。<br>另外Reader是用于从文件中读取输入的，后面会介绍文件的具体格式。</p>
+<p>另外，greed和heuristic定义不同的实体是为了在设计和实现之初可以更灵活的添加不同的属性以及方法。 后面代码优化可以用父类，接口，组合等方法提取相同或者相似的结构。</p>
+<p>solution目录下是具体的算法实现方案。</p>
+<p>GreedSolution是方案二。</p>
+<p>HeuristicSolution和HeuristicProSolution是方案三。两者的不同是HeuristicProSolution会在选取一个节点放入group后，更新其他节点的价值。 这两者用于比较更新操作对于算法的影响。</p>
+<p>utils是用于实验的一些类。</p>
+<p>BestEstimation求出所有应用的最大价值。用于估计分组数目最小值的一个下界（最优解至少需要的组数）。</p>
+<p>CaseGenerator根据一定的参数随机生成测试样例。</p>
+<p>Application作为整个项目的入口。生成的可执行jar包的入口。</p>
+<p>Batch用于批量运行测试样例，用于实验。</p>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>单元测试在test目录下。对reader，各种solution以及BestEstimation都做了单元测试。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>命令行执行<code>gradle jar</code>在<code>build/lib</code>下生成可执行jar包<code>cluster_upgrade-1.0-SNAPSHOT.jar</code>。</p>
+<p><code>cluster_upgrade-1.0-SNAPSHOT.jar</code>接受两个参数。</p>
+<p>第一个参数指定算法， ‘g’表示使用greedSolution, ‘h’表示使用heuristicSolution, 其他字符表示heuristicProSolution. 第二个参数是测试文件的相对路径。</p>
+<p>例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar cluster_upgrade-1.0-SNAPSHOT.jar g test0.txt</span><br></pre></td></tr></table></figure>
+
+<p>把<code>cluster_upgrade-1.0-SNAPSHOT.jar</code>放到<code>testCase</code>目录下之下上面命令可以得到输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">n1, n3</span><br><span class="line">n2</span><br></pre></td></tr></table></figure>
+
+<p>第一行是组数，后面的每一行是每组中的节点。</p>
+<h2 id="测试样例"><a href="#测试样例" class="headerlink" title="测试样例"></a>测试样例</h2><h3 id="生成测试样例"><a href="#生成测试样例" class="headerlink" title="生成测试样例"></a>生成测试样例</h3><p>CaseGenerator用于生成测试样例。</p>
+<p>主要的生成方法如下：</p>
+<ol>
+<li>先计算出整个集群能够容纳的最大replica数量。</li>
+<li>从第一个application开始，根据约束随机生成replica的数目r。</li>
+<li>随机选择r个有容量的节点，添加application.</li>
+<li>生成一个少于r的disruptionAllowed.</li>
+<li>重复2-4直到达到集群容量或者application上限.</li>
+</ol>
+<h3 id="测试样例格式"><a href="#测试样例格式" class="headerlink" title="测试样例格式"></a>测试样例格式</h3><p>第一行是节点数n 第二行是application的数量a 后面是a行，第i行两个数用逗号隔开，分别是第i个application的replica数和disruptionAllowed<br>后面是n行，第j行是第j个节点包含的所有application,逗号隔开</p>
+<p>问题描述中的例子可以表示为</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3</span><br><span class="line">2,1</span><br><span class="line">2,1</span><br><span class="line">2,1</span><br><span class="line">1,2</span><br><span class="line">1,2,3</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试样例说明"><a href="#测试样例说明" class="headerlink" title="测试样例说明"></a>测试样例说明</h3><p>testCase下共有41个测试样例。</p>
+<p>test0.txt 是问题描述中的例子。</p>
+<p>test1.txt 方案2中，贪心策略不能得到的最优解的例子。</p>
+<p>test2.txt-test10.txt 节点规模50，application规模40的小规模例子。</p>
+<p>test11.txt-text30.txt 节点规模5000，application规模4000,节点容纳50个application，replica在10到r之间。 r随着测试样例序号递增，从10递增到200.<br>通过r可以控制集群中节点的饱和度。饱和度指节点容纳application的个数。</p>
+<p>test31.txt-text40.txt 节点规模50，application规模40。但是它添加了一个特殊application, 包含在所有的节点里。 这个特殊节点能够产生更多区别方案二和方案三的结果。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>运行Batch.java可以得到下面的实验结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">testCase/test0.txt: 2,2,2,2</span><br><span class="line">testCase/test1.txt: 3,2,2,2</span><br><span class="line">testCase/test2.txt: 3,2,2,2</span><br><span class="line">testCase/test3.txt: 3,3,3,3</span><br><span class="line">testCase/test4.txt: 3,3,3,3</span><br><span class="line">testCase/test5.txt: 5,5,5,5</span><br><span class="line">testCase/test6.txt: 6,6,6,6</span><br><span class="line">testCase/test7.txt: 6,6,6,6</span><br><span class="line">testCase/test8.txt: 7,7,7,7</span><br><span class="line">testCase/test9.txt: 8,8,8,8</span><br><span class="line">testCase/test10.txt: 10,10,10,10</span><br><span class="line">testCase/test11.txt: 13,10,10,10</span><br><span class="line">testCase/test12.txt: 22,20,20,20</span><br><span class="line">testCase/test13.txt: 30,30,30,30</span><br><span class="line">testCase/test14.txt: 40,40,40,40</span><br><span class="line">testCase/test15.txt: 50,50,50,50</span><br><span class="line">testCase/test16.txt: 60,60,60,60</span><br><span class="line">testCase/test17.txt: 70,70,70,70</span><br><span class="line">testCase/test18.txt: 77,77,77,77</span><br><span class="line">testCase/test19.txt: 90,90,90,90</span><br><span class="line">testCase/test20.txt: 98,98,98,98</span><br><span class="line">testCase/test21.txt: 107,107,107,107</span><br><span class="line">testCase/test22.txt: 115,115,115,115</span><br><span class="line">testCase/test23.txt: 130,130,130,130</span><br><span class="line">testCase/test24.txt: 135,135,135,135</span><br><span class="line">testCase/test25.txt: 149,149,149,149</span><br><span class="line">testCase/test26.txt: 147,147,147,147</span><br><span class="line">testCase/test27.txt: 158,158,158,158</span><br><span class="line">testCase/test28.txt: 179,179,179,179</span><br><span class="line">testCase/test29.txt: 182,182,182,182</span><br><span class="line">testCase/test30.txt: 159,159,159,159</span><br><span class="line">testCase/test31.txt: 11,10,10,10</span><br><span class="line">testCase/test32.txt: 11,10,10,10</span><br><span class="line">testCase/test33.txt: 11,10,10,10</span><br><span class="line">testCase/test34.txt: 12,10,10,10</span><br><span class="line">testCase/test35.txt: 15,14,14,14</span><br><span class="line">testCase/test36.txt: 11,10,10,10</span><br><span class="line">testCase/test37.txt: 14,14,14,14</span><br><span class="line">testCase/test38.txt: 15,15,15,15</span><br><span class="line">testCase/test39.txt: 13,12,12,12</span><br><span class="line">testCase/test40.txt: 11,10,10,10</span><br></pre></td></tr></table></figure>
+
+<p>对于每个测试样例，后面有四个整数，分别是greedSolution,heuristicSolution,heuristicProSolution和bestEstimation求出的最少分组数目.</p>
+<p>实验结论：</p>
+<ol>
+<li>heuristicSolution在我们的测试样例中都达到了最优解。</li>
+<li>greedSolution大部分情况下达到了最优解，少部分劣于最优解，但相差不大。</li>
+<li>heuristicSolution和heuristicProSolution的分组数在我们的测试样例中是一样的，更新操作对结果影响不大。</li>
+</ol>
+<p>算法的运行时间在一般配置的电脑上处理5000个节点规模，4000个application规模的问题达到毫秒级或亚秒级。远低于10分钟的要求。</p>
+<h2 id="一些改进想法"><a href="#一些改进想法" class="headerlink" title="一些改进想法"></a>一些改进想法</h2><ol>
+<li><p>在得到可行解之后，能否通过一些策略和调整方法跳出局部最优解，在更大的解空间里面寻求最优解。 类似于模拟退火，遗传算法，蚁群算法之类。</p>
+</li>
+<li><p>由于时间关系实验并不是非常完善，测试样例并不是非常多。后续可以添加不同方式的测试样例生成方法，生成各类测试样例，增强实验效果。</p>
+</li>
+<li><p>输入数据没有做验证，对于错误的输入可能会抛出异常，比如负的节点数，节点中application数多于题目条件等。后续可加强对数据的验证。</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于本次的集群节点升级问题，我提供若干种求解算法。 包括暴力解法和基于贪心算法与利用启发式算法的近似算法。 同时还包括完整代码实现，可执行文件，单元测试，实验验证和详尽文档。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">方镇澎</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://fzp.github.io/2021/06/10/2021-6-11-cluster-upgrade/">http://fzp.github.io/2021/06/10/2021-6-11-cluster-upgrade/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ebay/">Ebay</a><a class="post-meta__tags" href="/tags/Cluster/">Cluster</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/03/31/mysql.mm/"><i class="fa fa-chevron-left">  </i><span>mysql</span></a></div><div class="next-post pull-right"><a href="/2021/03/16/how-sentry-work-1/"><span>Sentry 后端监控SDK分析</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2022 By 方镇澎</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.3"></script><script src="/js/fancybox.js?version=1.9.3"></script><script src="/js/sidebar.js?version=1.9.3"></script><script src="/js/copy.js?version=1.9.3"></script><script src="/js/fireworks.js?version=1.9.3"></script><script src="/js/transition.js?version=1.9.3"></script><script src="/js/scroll.js?version=1.9.3"></script><script src="/js/head.js?version=1.9.3"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
