@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Redis"><meta name="keywords" content=""><meta name="author" content="方镇澎,undefined"><meta name="copyright" content="方镇澎"><title>Redis | 方镇澎的博客</title><link rel="shortcut icon" href="/favicon.svg"><meta name="generator" content="Hexo 5.2.0"></head><body style="margin: 0px;"><svg id="markmap" width="100%"></svg><pre id="mm" hidden>
+# Redis
+## 数据结构
+### 基础数据结构
+#### String
+* char数组+长度+容量
+#### List
+* 双向链表，作为队列和栈
+* 底层: quciklist = ziplist(连续内存) + 双向链表
+#### Hash
+* 类似于hashmap结构， 数组+链表
+* 渐进式hash，同时保留新旧结构，用户查询两个结构直至迁移结束
+* hash相对于string支持获取部分数据，但整体存储消耗多于string
+#### Set
+* value为null的hash
+#### Zset 有序列表
+* 跳跃表： 多层链表，越上层跳跃的节点越多
+### 分布式锁
+* set 扩展参数 = setnx + expire
+### 消息队列
+### 位图
+1. String 可以作为位图用
+2. bitcount计算1个个数，bitopt指定范围出现的1或0
+3. bitfield 同时操作多个相邻的位
+### HyperLogLog
+#### 场景： 统计UV
+#### 指令： pfadd &amp; pfcount &amp; pfmerge
+#### 原理：低位连续0长度最大值与数量的对数线性相关
+### 布隆过滤器
+#### 用于判断一个值是否在某个集合中，布隆过滤器判断某个值存在，不一定在；某个值不在，肯定不在
+#### 原理
+1. 写：将字符串通过几个hash函数将其映射到维数组的多个bit上，设为1
+2. 读：同样映射，若有bit位0，则不存在，否则存在
+#### 限流
+1. zset实现滑动窗口限流，score表示时间戳
+2. 漏斗限流：均速漏水，漏斗剩余空间是请求的quota值
+3. redis-cell模块提供分布式漏斗算法
+#### GeoHash
+1. 二维坐标映射到一维
+2. 内部结构是zset
+#### 遍历
+##### keys: 获取所有key，数量大则慢
+##### scan: 游标分步获取key
+1. 遍历字典(hashmap)的slot.
+2. 遍历顺序: 高位加法遍历
+3. 扩容前的slot在扩容后在高位遍历顺序上是相邻的
+4. 大key会造成数据迁移和扩容时卡顿
+## 原理
+### 线程IO模型
+#### Redis是单线程
+#### 非阻塞IO
+1. 读写方法不阻塞，往内核缓冲区能读/写多少就读写多少
+2. 什么时候能继续写和继续读？
+#### 多路复用
+1. 每个sokcet都有相应的读写文件描述符
+2. 通过系统调用select或epoll在一个线程内同时处理多个读写文件描述符
+3. Redis位每个客户端分配指令队列和响应队列按顺序处理客户端指令
+4. 定时任务通过最小堆，把最近要执行的任务还需要的时间记录到select的timeout参数
+#### 通信协议
+* 数据库的瓶颈不在网络流量而在于数据库内部的逻辑处理上
+* 所以使用文本协议通信
+* 跑满一个核心达到10w/s的qps
+#### 持久化
+1. 快照： 内存数据的二进制序列化， 全量备份
+2. AOF日志：增量备份
+##### 快照原理
+1. copy on write机制
+2. 通过fork子进程处理
+##### AOF原理
+1. 记录堆内存进行修改的顺序指令序列
+2. AOF重写：子进程遍历内存，转换成redis指令
+3. fsync命令定期刷盘
+##### 混合持久化
+1. rdb快照+自快照起的AOF日志
+#### 管道
+1. 客户端技术
+2. 客户端改变请求的读写顺序
+3. 写读写读-&gt;写写读读
+#### 事务
+1. 只满足可串行化的要求，不满足原子性
+2. multi， exec， discard
+3. watch提供乐观锁机制
+## 集群
+### Redis异步方式同步，满足可用性，最终一致性
+### 增量同步
+* 修改指令存入buffer，异步从buffer中同步指令到从节点
+* buffer是环形数组，被覆盖了启用快照同步
+### 快照同步
+1. bgsave将内存数据快照到磁盘
+2. 传送到从节点
+3. 从节点加载
+4. 加载完毕再进行增量同步
+5. 可能死循环
+### 无盘复制
+1. 主节点直接通过socket发送快照到从节点
+2. 从节点同快照同步，需要把内容存储到磁盘文件
+### wait指令
+* wait N t， 等待之前所有指令同步到N个从节点，最多等t毫秒
+### Sentinel（一主多备）
+* 一个哨兵集群持续监控主从节点的健康，如果主节点挂掉会自动选择最优从节点位主节点
+* 客户端也会向sentinel获取新主地址
+### Codis
+* 中间代理层，负责转发路由
+* 路由槽位由第三方分布式配置存储数据库负责（zookeeper， etcd）
+### Redis cluster
+* 将数据分成16384个槽位
+* 每个节点负责一部分槽位
+* 节点之间通过gossip协议交互集群信息
+* 可以配置主从节点，主节点失效通过raft算法选举新的主节点
+* 客户端在请求前获得所有槽位的配置信息
+* 如果发送到错误节点，错误节点会告诉客户端真正的节点
+* Redis cluster迁移可以用redis-reib工具</pre><script src="https://cdn.jsdelivr.net/npm/d3@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-view"></script><script src="https://cdn.jsdelivr.net/npm/d3@6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view"></script><script src="https://cdn.jsdelivr.net/npm/markmap-lib/dist/browser/index.min.js"></script><script>document.getElementById("markmap").style.height = (parseInt(document.documentElement.clientHeight) * 0.99) + "px";
+const markdown = document.getElementById("mm").innerHTML;
+console.log(markdown);
+console.log(window);
+const transformer = new window.markmap.Transformer();
+const {
+    root,
+    features
+} = transformer.transform(markdown);
+const {
+    styles,
+    scripts
+} = transformer.getUsedAssets(features);
+
+const {
+    Markmap,
+    loadCSS,
+    loadJS
+} = window.markmap;
+
+if (styles) loadCSS(styles);
+if (scripts) loadJS(scripts, {
+    getMarkmap: () => window.markmap
+});
+
+Markmap.create('#markmap', null, root);</script></body></html>
